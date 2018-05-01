@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     photoView.setImageBitmap(userPhoto);
                     Face[] result = findFace(userPhoto);
                     try {
-                        Toast.makeText(getApplicationContext(), "You Look " + result[0] + " Years Old", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "You Look " + result[0].toString() + " Years Old", Toast.LENGTH_LONG).show();
                     } catch (Exception e){
                         Toast.makeText(getApplicationContext(), "No Face Detected", Toast.LENGTH_LONG).show();
                     }
