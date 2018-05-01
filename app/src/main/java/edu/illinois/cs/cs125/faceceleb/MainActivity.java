@@ -2,6 +2,7 @@ package edu.illinois.cs.cs125.faceceleb;
 
 import com.microsoft.projectoxford.face.*;
 import com.microsoft.projectoxford.face.contract.*;
+import com.microsoft.*;
 import java.io.*;
 import android.os.*;
 import android.content.Intent;
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                                 );
                                 return result;
                             } catch (Exception e) {
-                                return null;
+                                return new Face[1];
                             }
                         }
                     };
