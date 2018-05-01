@@ -2,7 +2,6 @@ package edu.illinois.cs.cs125.faceceleb;
 
 import com.microsoft.projectoxford.face.*;
 import com.microsoft.projectoxford.face.contract.*;
-import com.microsoft.*;
 import java.io.*;
 import android.os.*;
 import android.content.Intent;
@@ -88,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 if (userPhoto != null) {
                     photoView.setImageBitmap(userPhoto);
                     Face[] result = findFace(userPhoto);
-                    if (result != null) {
+                    try {
                         Toast.makeText(getApplicationContext(), "You Look " + result[0].toString() + " Years Old", Toast.LENGTH_LONG).show();
-                    } else {
+                    } catch (Exception e){
                         Toast.makeText(getApplicationContext(), "No Face Detected", Toast.LENGTH_LONG).show();
                     }
                 } else {
