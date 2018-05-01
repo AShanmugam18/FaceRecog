@@ -181,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     };
+            detectTask.execute(inputStream);
             return null;
         } catch (Exception e) {
             return null;
