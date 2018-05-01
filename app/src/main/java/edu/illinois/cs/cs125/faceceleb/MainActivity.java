@@ -86,13 +86,16 @@ public class MainActivity extends AppCompatActivity {
                 photoView = findViewById(R.id.imageView);
                 if (userPhoto != null) {
                     photoView.setImageBitmap(userPhoto);
-                }
-                Face[] result = findFace(userPhoto);
-                if (result != null) {
-                    Toast.makeText(getApplicationContext(), "You Look " + result.toString() + " Years Old", Toast.LENGTH_LONG).show();
+                    Face[] result = findFace(userPhoto);
+                    if (result != null) {
+                        Toast.makeText(getApplicationContext(), "You Look " + result[0].toString() + " Years Old", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Face Detected", Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    Toast.makeText(getApplicationContext(), "No Face Detected", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                 }
+
                 /** Most of it is done. After taking a picture with the camera, the photo will be stored in the "Bitmap photo".
                  *
                  *  What's left to do is:
@@ -156,30 +159,34 @@ public class MainActivity extends AppCompatActivity {
         }
 
     private Face[] findFace(final Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-        ByteArrayInputStream inputStream =
-                new ByteArrayInputStream(outputStream.toByteArray());
-        AsyncTask<InputStream, String, Face[]> detectTask =
-                new AsyncTask<InputStream, String, Face[]>() {
-                    @Override
-                    protected Face[] doInBackground(InputStream... params) {
-                        try {
-                            Face[] result = faceServiceClient.detect(
-                                    params[0],
-                                    false,
-                                    false,
-                                    new FaceServiceClient.FaceAttributeType[]{FaceServiceClient.FaceAttributeType.Age}
-                            );
-                            if (result == null) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            ByteArrayInputStream inputStream =
+                    new ByteArrayInputStream(outputStream.toByteArray());
+            AsyncTask<InputStream, String, Face[]> detectTask =
+                    new AsyncTask<InputStream, String, Face[]>() {
+                        @Override
+                        protected Face[] doInBackground(InputStream... params) {
+                            try {
+                                Face[] result = faceServiceClient.detect(
+                                        params[0],
+                                        false,
+                                        false,
+                                        new FaceServiceClient.FaceAttributeType[]{FaceServiceClient.FaceAttributeType.Age}
+                                );
+                                if (result == null) {
+                                    return null;
+                                }
+                                return result;
+                            } catch (Exception e) {
                                 return null;
                             }
-                                return result;
-                        } catch (Exception e) {
-                            return null;
                         }
-                    }
-                };
-        return null;
+                    };
+            return null;
+        } catch (Exception e) {
+            return null;
+            }
         }
     }
