@@ -175,9 +175,6 @@ public class MainActivity extends AppCompatActivity {
                                         false,
                                         new FaceServiceClient.FaceAttributeType[]{FaceServiceClient.FaceAttributeType.Age}
                                 );
-                                if (result == null) {
-                                    return null;
-                                }
                                 return result;
                             } catch (Exception e) {
                                 return null;
