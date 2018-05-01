@@ -19,7 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
-    private FaceServiceClient faceServiceClient = new FaceServiceRestClient("your API endpoint", "<Subscription Key>");
+    private FaceServiceClient faceServiceClient = new FaceServiceRestClient("https://westcentralus.api.cognitive.microsoft.com/face/v1.0", "a6e9582074894223aae3e245575da073");
 
     /** Default logging tag for messages from the main activity. */
     private static final String TAG = "My App";
